@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <style>
+        body {
+            background-color: #dedadabc;
+        }
+
+        .Menu-Bar {
+            padding: 1px;
+            height: 40px;
+            width: 30px;
+            border: 1px solid blue;
+        }
+
+        .Menu-Bar img {
+            height: 30px;
+            width: 25px;
+        }
+
+        
+    .nana1 a {
+        padding-left: 900px;
+        color: black;
+        text-decoration: none;
+        text-align: end;
+    }
+
+    .nana2 a {
+        padding-left: auto;
+        color: black;
+        text-decoration: none;
+
+    }
+
+    .nana3 a,
+    a {
+        color: black;
+        padding-left: auto;
+        text-decoration: none;
+    }
+
+    .nana1,
+    .nana2,
+    .nana3 a:hover {
+        cursor: pointer;
+        color: #4CAF50;
+        transition: 3s ease;
+    }
+
+
+        .Menu, .Menu2 {
+            color: black;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            opacity: 100%;
+            margin: 10% auto;
+            width: 400px;
+        }
+
+        .Menu label {
+            display: block;
+            margin-top: 10px;
+            font-size: large;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: 700;
+        }
+
+        .Menu option {
+            color: white;
+            background-color: rgb(95, 95, 95);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .text {
+            color: rgba(0, 0, 0, 0.763);
+            background-color: white;
+            margin-bottom: 10%;
+            width: 70%;
+            height: 30px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .Mobile {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            margin: 5px;
+        }
+
+        .Buy {
+            background-color: rgb(37, 131, 37);
+            border: 1px solid rgb(37, 131, 40);    
+        }
+
+        .Stop {
+            background-color: rgb(157, 19, 19);
+            border: 1px solid rgb(157, 19, 19);    
+        }
+
+        .Stop,
+        .Buy {
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            margin: 10px;
+            gap: 110px;
+        }
+
+        .Exit{
+            color: white;
+            background-color: rgb(60, 113, 213);
+            padding: 10px;
+            border-radius: 10px;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+    <button id="ResultBtn" onclick="ShowFormsResult();" style="display: none;" class="Menu-Bar">
+        <span id="Result">Order Summary</span>
+        <img src="three dots.png" alt="Menu_Bar">
+    </button>
+
+    <span class="nana1">
+        <a href="Index(5).html">Order Manually</a>
+    </span>
+    |
+    <span class="nana2">
+        <a href="Index(5,6).html">Cart Order</a>
+    </span>
+    |
+    <span class="nana3">
+        <a href="sign-in1.html">Sign in</a>
+    </span>
+
+
+    <div class="Menu" style="display: block;" autocomplete="off">
+        <label>Name:</label>
+        <input class="text" name="Name" id="Name" type="text" required> 
+        <br>
+
+        <label>Food:</label>
+        <select name="Food" id="Food" class="text" required>
+            <option disabled selected>The food you want to order</option>
+            <option value="Jollof rice + Chicken">Jollof rice + Chicken</option>
+            <option value="Waakye + Egg">Waakye + Egg</option>
+            <option value="Waakye + Fish">Waakye + Fish</option>
+            <option value="Fried Rice + Chicken">Fried Rice + Chicken</option>
+            <option value="Fried Rice + Fried Egg">Fried Rice + Fried Egg</option>
+            <option value="Indomie + Chicken">Indomie + Chicken</option>
+            <option value="Indomie + Fried Egg">Indomie + Fried Egg</option>
+        </select>
+        <select id="Quantity" class="Mobile">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <br>
+
+        <label>Location:</label>
+        <input class="text" name="Location" id="Location" type="text" required><br>
+
+        <label>Mobile Number:</label>
+        <select class="Mobile" id="Mobile" name="Mobile Number">
+            <option disabled selected>Select the SIM you use</option>
+            <option value="MTN">MTN</option>
+            <option value="Telecel">Telecel</option>
+            <option value="Tigo">Tigo</option>
+        </select>
+        <input type="text" class="text" id="Number" required>
+        <br>
+
+        <button class="Buy" onclick="Proceed();">Proceed</button>
+    </div>
+
+    <form action="mailto:gladysdarkwah1978@gmail.com" class="Menu2" style="display: none;">
+        <p id="NameHolder"></p>
+        <p id="FoodHolder"></p>
+        <p id="LocationHolder"></p>
+        <p id="MobileHolder"></p>
+        <p id="NumberHolder"></p>
+
+        <hr>
+            <p>Food Cost: GHC <span id="FoodCost"></span></p>
+            <p>Tax: GHC <span id="Tax"></span></p>
+            <p>Delivery Fee: GHC <span id="ShippingFee"></span></p> 
+            <p>Total: GHC <span id="total"></span></p>
+        <button class="Buy" >Buy now</button>
+    <button class="Stop" onclick="StopShopping();">Cancel</button>
+</form>
+
+
+        <a href="Index(4).html"><button class="Exit">Go to home page</button></a>
+
+    <script>
+        function Proceed() {
+            // Get form values
+            const name = document.getElementById('Name').value;
+            const food = document.getElementById('Food').value;
+            const location = document.getElementById('Location').value;
+            const mobile = document.getElementById('Mobile').value;
+            const number = document.getElementById('Number').value;
+            const quantity = parseInt(document.getElementById('Quantity').value);
+
+            if (!name || !food || !location || !mobile || !number || !quantity) {
+                alert('To proceed, please fill in all the forms');
+                return;
+            }
+
+            // Populate result section
+            document.getElementById('NameHolder').textContent = `Name: ${name}`;
+            document.getElementById('FoodHolder').textContent = `Food: ${food}`;
+            document.getElementById('LocationHolder').textContent = `Location: ${location}`;
+            document.getElementById('MobileHolder').textContent = `Sim: ${mobile}`;
+            document.getElementById('NumberHolder').textContent = `Number: ${number}`;
+
+            // Calculate costs based on selected food
+            let foodCost = 50 * quantity;
+            const tax = foodCost / 5;
+            const shippingFee = 5 * quantity;
+            const total = foodCost + tax + shippingFee + 10;
+
+            // Populate cost details
+            document.getElementById('FoodCost').textContent = foodCost.toFixed(2);
+            document.getElementById('Tax').textContent = tax.toFixed(2);
+            document.getElementById('ShippingFee').textContent = shippingFee.toFixed(2);
+            document.getElementById('total').textContent = total.toFixed(2);
+
+            // Show result button and reset form
+            document.getElementById('ResultBtn').style.display = 'block';
+
+            // Clear form fields
+            document.getElementById('Name').value = '';
+            document.getElementById('Food').value = '';
+            document.getElementById('Location').value = '';
+            document.getElementById('Mobile').value = '';
+            document.getElementById('Number').value = '';
+            document.getElementById('Quantity').value = '1';
+        }
+
+        function ShowFormsResult() {
+            document.getElementById('ResultBtn').style.display = 'none';
+            document.querySelector('.Menu').style.display = 'none';
+            document.querySelector('.Menu2').style.display = 'block';
+        }
+
+        function StopShopping() {
+            document.getElementById('ResultBtn').style.display = 'none';
+            document.querySelector('.Menu').style.display = 'block';
+            document.querySelector('.Menu2').style.display = 'none';
+        }
+    </script>         
+</body>
+</html>

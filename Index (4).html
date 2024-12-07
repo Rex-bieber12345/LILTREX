@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIDDLES</title>
+
+<style>
+body{
+    font-family: arial, 'sans-serif', 'serif';
+}
+
+.Questions{
+        padding:20px 10px 20px 20px;
+        color: white;
+        background-color: #66bf;
+        margin: 20px 20px 20px 20px;
+
+    }
+.Questions a {
+    color: white;
+}
+
+    h3{
+text-align: center;   
+text-decoration: underline;
+}
+
+    .Answers{
+    color: black;
+    background-color: #ffff02;
+    border: 3px solid rgb(28, 20, 20);
+    margin: 20px 20px 20px 20px;
+}
+
+.alert{
+    text-decoration:underline;
+    padding-left: 40%;
+    font-size: x-large;
+    color: wheat;
+}
+
+
+.Simulator ,
+#New ,
+#Simulator2{
+border-radius: 50px;
+padding: 10px 5px 10px 5px;
+background-color: #00ff11;
+color: rgb(115, 20, 140);
+cursor: pointer;
+}
+
+.answers{  
+    cursor:auto ;
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px;
+    margin: 5px 10px 15px 10px;
+}
+
+.HideDisplay{
+border-radius: 50px;
+padding: 10px 5px 10px 5px;
+background-color: rgb(234, 93, 93);
+color: rgb(115, 20, 140);
+cursor: pointer;
+}
+</style>
+
+
+</head>
+<body>
+<div class="Questions">
+
+    <a href="index.html"><h3>RIDDLES & QUESTIONS</h3></a>
+    
+    <ol>
+        <li >What goes up and down but never moves ?</li>
+        <input  placeholder="Input Answer" class="js-answer-input answers" required>        
+      <br>    
+      <br>     
+        <li >If you were in a race and you passed the second person what will be your position ?</li>
+        <input placeholder="Input Answer" class="js-answer-input-2 answers" required>
+        <br>
+        <br>
+        <li >How many letters are in 'the alphabet' ?</li>
+        <input placeholder="Input Answer" class="js-answer-input-3 answers" required>
+        <br>
+        <br>
+                
+        <li >What has head and tail but no body ?</li>
+        <input placeholder="Input Answer" class="js-answer-input-4 answers" required>
+        <br>
+        <br>
+        <li >What goes up and never comes down?</li>
+        <input placeholder="Input Answer" class="js-answer-input-5 answers" required>
+        <br>
+        <br>
+        <li class="Q6">If you have 10 eggs, and you crack 2, fry 2, and eat 2, What will be the remaining ?</li>
+        <input  placeholder="Input Answer" class="js-answer-input-6 answers" required>
+        <br>
+    <br>
+     <li  class="Q7">If you are 10 years old and I'm half of your age, how old will I be if you become 40 ?</li>
+        <input  placeholder="Input Answer" class="js-answer-input-7 answers" required>
+        <br>
+        <br>
+     <li  class="Q8">How many animals were in Moses' ark ?</li>
+        <input  placeholder="Input Answer" class="js-answer-input-8 answers" required>
+        <br>
+        <br>
+     <li  class="Q9">A man closed from work and was going home. On his way home it started raining. He wasn't having umbrella so his cloths got wet but his hair didn't get wet. How is this possible ?</li>
+        <input  placeholder="Input Answer" class="js-answer-input-9 answers" required>
+        <br>
+        <br>
+     <li  class="Q10">What's between the "Sea" and the "Ocean" ?</li>
+        <input  placeholder="Input Answer" class="js-answer-input-10 answers" required>
+    </ol>
+        <button class="Simulator" style="display: block;" onclick="SimulateAns();">Send and View answers</button>
+
+</div>
+
+<div class="Answers Answers1" id="Answers" style="display: none;">
+    <h1>Answers</h1>
+    <ol>
+   <li><p class="result"></p></li>
+   <li><p class="result01"></p></li>
+   <li><p class="result02"></p></li>
+   <li><p class="result03"></p></li>
+   <li><p class="result04"></p></li>
+   <li><p class="result05"></p></li>
+   <li><p class="result06"></p></li>
+   <li><p class="result07"></p></li>
+   <li><p class="result08"></p></li>
+   <li><p class="result09"></p></li>
+
+</ol>
+</div>
+</div>
+
+</body>
+
+<script src="pepperline.js"></script>
+
+</html>

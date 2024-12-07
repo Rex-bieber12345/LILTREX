@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My YouTube App</title>
+<style>
+    /* Base styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #ff0000;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    height: 40px;
+    margin-right: 15px;
+}
+
+header input[type="text"] {
+    width: 400px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+#user-controls {
+    display: flex;
+    gap: 15px;
+}
+
+#user-controls button {
+    background-color: white;
+    color: #ff0000;
+    border: 1px solid #ff0000;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#user-controls button:hover {
+    background-color: #ff0000;
+    color: white;
+}
+
+main {
+    padding: 20px;
+}
+
+.video-player {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.video-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.video-card {
+    background-color: white;
+    width: calc(25% - 15px);
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s;
+}
+
+.video-card:hover {
+    transform: scale(1.02);
+}
+
+.video-card img {
+    width: 100%;
+    height: auto;
+}
+
+.video-card .details {
+    padding: 15px;
+}
+
+.video-card .details h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.video-card .details p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.video-card .delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: none;
+}
+
+.video-card:hover .delete-button {
+    display: block;
+}
+
+.form {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 300px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.form input, .form textarea {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form button {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.form button:hover {
+    background-color: #cc0000;
+}
+
+</style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="logo">
+                <img src="Images/Riddles.png" alt="My YouTube App">
+                <h1>My YouTube App</h1>
+            </div>
+            <input type="text" id="search" placeholder="Search" oninput="searchVideos()">
+            <div id="user-controls">
+                <!-- Buttons will be dynamically shown based on login status -->
+            </div>
+        </header>
+        <main>
+                <!-- Videos will be loaded here -->
+
+            <div id="login-form" class="form" style="display: none;">
+                <h2>Login</h2>
+                <input type="text" id="login-username" placeholder="Username" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button onclick="login()">Login</button>
+                <button onclick="hideForms()">Cancel</button>
+            </div>
+            <div id="register-form" class="form" style="display: none;">
+                <h2>Register</h2>
+                <input type="text" id="register-username" placeholder="Username" required>
+                <input type="password" id="register-password" placeholder="Password" required>
+                <button onclick="register()">Register</button>
+                <button onclick="hideForms()">Cancel</button>
+            </div>
+            <div id="post-video-form" class="form" style="display: none;">
+                <h2>Post Video</h2>
+                <input type="text" id="video-title-input" placeholder="Title" required>
+                <textarea id="video-description-input" placeholder="Description" required></textarea>
+                <input type="text" id="video-url-input" placeholder="Video URL" required>
+                <input type="file" id="video-thumbnail-input" accept="image/*">
+                <button onclick="postVideo()">Post Video</button>
+                <button onclick="hideForms()">Cancel</button>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const videoList = document.getElementById('video-list');
+    const videoPlayer = document.getElementById('video-player');
+    const videoElement = document.getElementById('video');
+    const videoTitle = document.getElementById('video-title');
+    const videoDescription = document.getElementById('video-description');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const postVideoForm = document.getElementById('post-video-form');
+    const userControls = document.getElementById('user-controls');
+
+    // Utility function to hash passwords using SHA-256
+    async function hashPassword(password) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(password);
+        const hash = await crypto.subtle.digest('SHA-256', data);
+        return Array.from(new Uint8Array(hash)).map(byte => byte.toString(16).padStart(2, '0')).join('');
+    }
+
+    // Check if user is logged in
+    function checkLoginStatus() {
+        const token = localStorage.getItem('token');
+        if (token) {
+            userControls.innerHTML = `
+                <button onclick="showPostVideo()">Post Video</button>
+                <button onclick="logout()">Logout</button>
+            `;
+        } else {
+            userControls.innerHTML = `
+                <button onclick="showLogin()">Login</button>
+                <button onclick="showRegister()">Register</button>
+            `;
+        }
+    }
+
+    checkLoginStatus();
+
+    // Function to create video card elements
+    function createVideoCard(video) {
+        const videoCard = document.createElement('div');
+        videoCard.className = 'video-card';
+        videoCard.onclick = () => playVideo(video);
+
+        const img = document.createElement('img');
+        img.src = video.thumbnail || 
+
+//via.placeholder.com/300x200';
+        videoCard.appendChild(img);
+
+        const details = document.createElement('div');
+        details.className = 'details';
+
+        const title = document.createElement('h3');
+        title.innerText = video.title;
+        details.appendChild(title);
+
+        const description = document.createElement('p');
+        description.innerText = video.description;
+        details.appendChild(description);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'delete-button';
+        deleteButton.innerText = 'Delete';
+        deleteButton.onclick = (e) => {
+            e.stopPropagation();
+            deleteVideo(video);
+        };
+        videoCard.appendChild(deleteButton);
+
+        videoCard.appendChild(details);
+
+        return videoCard;
+    }
+
+    // Function to play a video
+    function playVideo(video) {
+        videoElement.src = video;
+        videoTitle.innerText = video.title;
+        videoDescription.innerText = video.description;
+        videoPlayer.style.display = 'flex';
+    }
+
+    // Function to close the video player
+    window.closeVideo = function() {
+        videoElement.pause();
+        videoPlayer.style.display = 'none';
+    }
+
+    // Function to search videos
+    window.searchVideos = function() {
+        const searchInput = document.getElementById('search').value.toLowerCase();
+        const videos = JSON.parse(localStorage.getItem('videos')) || [];
+        const filteredVideos = videos.filter(video => video.title.toLowerCase().includes(searchInput) || video.description.toLowerCase().includes(searchInput));
+        videoList.innerHTML = '';
+        filteredVideos.forEach(video => {
+            const videoCard = createVideoCard(video);
+            videoList.appendChild(videoCard);
+        });
+    }
+
+    // Load videos into the DOM
+    function loadVideos() {
+        const videos = JSON.parse(localStorage.getItem('videos')) || [];
+        const token = JSON.parse(localStorage.getItem('token'));
+
+        videoList.innerHTML = '';
+        videos
+            .filter(video => !token || video.username === token.username) // Show only user's videos if logged in
+            .forEach(video => {
+                const videoCard = createVideoCard(video);
+                videoList.appendChild(videoCard);
+            });
+    }
+
+    loadVideos();
+
+    // Show/hide forms
+    window.showLogin = function() {
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+        postVideoForm.style.display = 'none';
+    }
+
+    window.showRegister = function() {
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+        postVideoForm.style.display = 'none';
+    }
+
+    window.showPostVideo = function() {
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'none';
+        postVideoForm.style.display = 'block';
+    }
+
+    window.hideForms = function() {
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'none';
+        postVideoForm.style.display = 'none';
+    }
+
+    // Register user
+    window.register = async function() {
+        const username = document.getElementById('register-username').value;
+        const password = document.getElementById('register-password').value;
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        if (users.find(user => user.username === username)) {
+            alert('Username already exists');
+            return;
+        }
+        const hashedPassword = await hashPassword(password);
+        users.push({ username, password: hashedPassword });
+        localStorage.setItem('users', JSON.stringify(users));
+        alert('User registered successfully');
+        hideForms();
+    }
+
+    // Login user
+    window.login = async function() {
+        const username = document.getElementById('login-username').value;
+        const password = document.getElementById('login-password').value;
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const hashedPassword = await hashPassword(password);
+        const user = users.find(user => user.username === username && user.password === hashedPassword);
+        if (!user) {
+            alert('Invalid credentials');
+            return;
+        }
+        localStorage.setItem('token', JSON.stringify({ username }));
+        alert('User logged in successfully');
+        hideForms();
+        checkLoginStatus();
+        loadVideos();
+    }
+
+    // Logout user
+    window.logout = function() {
+        localStorage.removeItem('token');
+        alert('User logged out successfully');
+        checkLoginStatus();
+        loadVideos();
+    }
+
+    // Post video
+    window.postVideo = function() {
+        const title = document.getElementById('video-title-input').value;
+        const description = document.getElementById('video-description-input').value;
+        const videoUrl = document.getElementById('video-url-input').value;
+        const thumbnailInput = document.getElementById('video-thumbnail-input');
+        const token = JSON.parse(localStorage.getItem('token'));
+        if (!token) {
+            alert('You must be logged in to post a video');
+            return;
+        }
+        const videos = JSON.parse(localStorage.getItem('videos')) || [];
+        const thumbnailFile = thumbnailInput.files[0];
+        const thumbnailUrl = thumbnailFile ? URL.createObjectURL(thumbnailFile) : '';
+
+        videos.push({ title, description, videoUrl, thumbnail: thumbnailUrl, username: token.username });
+        localStorage.setItem('videos', JSON.stringify(videos));
+        alert('Video posted successfully');
+        hideForms();
+        loadVideos();
+    }
+
+    // Delete video
+    function deleteVideo(video) {
+        const token = JSON.parse(localStorage.getItem('token'));
+        if (!token) {
+            alert('You must be logged in to delete a video');
+            return;
+        }
+        const videos = JSON.parse(localStorage.getItem('videos')) || [];
+        const updatedVideos = videos.filter(v => v.videoUrl !== video.videoUrl || v.username !== token.username);
+        localStorage.setItem('videos', JSON.stringify(updatedVideos));
+        alert('Video deleted successfully');
+        loadVideos();
+    }
+});
+
+    </script>
+</body>
+</html>

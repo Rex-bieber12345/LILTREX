@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beat it</title>
+<style>
+    body{
+        font-family: Georgia, 'Times New Roman', Times, ;
+    }
+
+</style>
+
+</head>
+<body>
+
+    <p>Cart Quantity: <span class="js-value-content"></span></p>
+
+
+    <button onclick="DisplayCart();">Show cart quantity</button>
+    <button onclick="Add1ToCart();">+1</button>
+    <button onclick="Add2ToCart();">+2</button>
+    <button onclick="Add3ToCart();">+3</button>
+    <button onclick="ResetCart();">Reset Cart</button>
+
+</body>
+
+<script>
+let cartQuantity = 0;
+
+    function DisplayCart(){ 
+    document.querySelector(`.js-value-content`).innerText=` ${cartQuantity}` 
+    }
+
+    function Add1ToCart(){  cartQuantity++
+        document.querySelector(`.js=value-content`).innerHTML=`${cartQuantity}`
+            }
+
+    function Add2ToCart(){ cartQuantity+=2
+    document.querySelector(`.js=value-content`).innerHTML=`${cartQuantity}`   
+    }
+
+    function Add3ToCart(){ cartQuantity+=3
+    document.querySelector(`.js=fvalue-content`).innerHTML=`${cartQuantity}`   
+    }
+
+    function ResetCart(){cartQuantity=0;
+        document.querySelector(`.js-value-content`).innerHTML=` ${cartQuantity} `   
+
+    }
+     </script>
+
+</html

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies Uploader</title>
+</head>
+<style>
+.js-name-input,
+.js-movie-input{
+    margin-bottom: 10px;
+    width: 400px;
+    height: 30px;
+    /* margin: 10px 0; */
+    /* padding: 10px; */
+    /* border: 1px solid #ddd; */
+    /* display: flex; */
+    /* border-radius: 5px; */
+
+}
+
+.js-input{
+    margin-bottom: 10px;
+width: 400px;
+height: 30px;
+}
+
+    .MovieUploader{
+        display: flexbox;
+        text-align: justify;
+        text-justify: newspaper;
+        border-radius: 5px;
+        border:10px solid #00ff00;
+        background-color: #00ff00;
+        color: Green;
+    }
+
+    .MovieUploader:hover .play-button {
+        display: block;
+    }
+
+.MovieHolder {
+        position: relative;
+    width: 400px;
+    margin: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.MovieHolder:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.MovieHolder video {
+    width: 100%;
+    height: auto;
+    border-radius: 5px 5px 0 0;
+}
+
+.play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(255, 255, 255, 0.7);
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 50%;
+        display: none;
+    }
+
+    .play-button img {
+        width: 30px;
+        height: 30px;
+    }
+
+
+.h201 {
+        margin: 0;
+        color: #66bfbf;
+        /*Whatsapp blue color*/
+    }
+
+
+    .form {
+    background-color: white;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 500px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.form input, .form textarea {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    display: flex;
+    border-radius: 5px;
+}
+
+.form button {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.form button:hover {
+    background-color: #cc0000;
+}
+
+.Uploader{
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+ .Uploader :hover{
+    background-color: #cc0000;
+
+ }
+
+ .Cancelbtn{
+    cursor:pointer;
+    /* padding-right: 50px; */
+    float:inline-end;
+    direction: rtl; 
+/* background-color: rgba(0, 0, 0, 0.1);  */
+}
+
+.Cancelbtn :hover{
+background-color: black;
+padding: 10px;
+border-radius: 9000px;
+}
+
+</style>
+<body>
+
+
+    <button onclick="showPostVideo();" class="Uploader">Post Video</button>
+
+    
+    <div class="MovieHolder"></div>
+
+    <h2 class="js-movie-name h201"></h2>
+
+
+
+
+<div class="form" id="post-video-form" style="display: none;" >
+
+<div  class="Cancelbtn" title="close" onclick="hideForms();">&xopf;</div>
+    
+<input type="url" placeholder="Add video url" class="js-movie-input" accept="images/*" >
+
+<input placeholder="Movie caption. eg:Martin (Season1) BluecreditCard " class="js-name-input">
+  
+    <button class="MovieUploader" onclick="UploadMovie();">Upload Movie</button>
+    <br>
+    <br>
+    <button  onclick="hideForms()">Cancel</button>
+
+</div>
+
+</body>
+
+<script>
+
+    const postVideoForm = document.getElementById('post-video-form');
+
+function showPostVideo() {
+        // loginForm.style.display = 'none';
+        // registerForm.style.display = 'none';
+        postVideoForm.style.display = 'block';
+    }
+
+
+    function hideForms() {
+        // loginForm.style.display = 'none';
+        // registerForm.style.display = 'none';
+        postVideoForm.style.display = 'none';
+    }
+
+    
+    function createVideoCard(video) {
+        UploadMovie(); 
+        const VideoCard = document.createElement('div');
+            VideoCard.className = 'video-card';
+        const videoElement = ` <video controls>
+             <source src="${Movie}" type="video/mp4">
+             <track kind="subtitles" src="captions1.vtt" srclang="en" label="English">
+             Your browser does not support the video tag.
+         </video>
+         <button class="play-button" onclick="togglePlayPause(this)">
+             <img src="play-button.png" alt="Play">
+         </button>`;
+            VideoCard.innerHTML= videoElement;
+        
+        }
+
+
+    //Upload movies
+    function UploadMovie(){
+        const MovieElement = document.querySelector(`.js-movie-input`);
+        const Movie = String (MovieElement.value)
+        createVideoCard();
+        
+
+
+    const display = document.querySelector(`.MovieHolder`); 
+    const videoCard =createVideoCard(video);
+   display.appendChild(videoCard)
+
+
+let CaptionElement = document.querySelector(`.js-name-input`);
+const caption = String(
+    CaptionElement.value
+
+    )
+ if (caption === `` || caption > 5) {
+     alert(`Please add caption to your movie.`)
+ } else{
+     document.querySelector('.js-movie-name').innerHTML= ``;
+ } 
+ {
+     document.querySelector('.js-movie-name').innerHTML= ``;    
+    
+ }
+    document.querySelector('.js-movie-name').innerHTML= `${caption}`;    
+CaptionElement.value=``;
+
+
+
+
+function playVideo(button) {
+            var video = button.parentElement.querySelector('video');
+            video.play();
+        }
+
+
+        function searchVideos() {
+            var searchTerm = document.querySelector('.search-bar input').value.toLowerCase();
+            var videoCards = document.querySelectorAll('.MovieHolder');
+
+            videoCards.forEach(function (card) {
+                var title = card.querySelector('h2').textContent.toLowerCase();
+                var video = card.querySelector('video');
+
+                if (title.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                    video.pause(); // Pause hidden videos
+                }
+            });
+        }
+
+        function togglePlayPause(button) {
+            var video = button.parentElement.querySelector('video');
+            if (video.paused || video.ended) {
+                video.play();
+                button.innerHTML = '<img src="pause-button.png" alt="Pause">';
+            } else {
+                video.pause();
+                button.innerHTML = '<img src="play-button.png" alt="Play">';
+            }
+        }
+    };
+        </script>
+
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documente</title>
+</head>
+<body>
+    
+    <input class="js-input-elemet" placeholder="type here">
+    <button onclick="SubmitInput();">Submit</button>
+    <div id="Input-results" class="Input-results"></div>
+
+    <script>
+        function SubmitInput() {
+            const inputElement = document.querySelector('.js-input-elemet');
+            const inputValue = inputElement.value;
+            const inputValueSpan = document.createElement('span');
+            const plus = inputValueSpan.innerHTML = inputValue; 
+
+
+
+            if (inputValue !== '') {
+                Addup();
+            } else {
+                document.querySelector('.Input-results').innerHTML = 'fuck';
+                
+            }
+            
+
+            function Addup() {
+                let result = [`${plus}`];
+                let resultHTML = '';
+
+                for (let i = 0; i <= result.length; i++) {
+                    const span = result[i];
+                    const html = `<div>${span} <button onclick="result.splice(${i},1);Addup();">Block</button><a href="About.html"><button>Verify</button></a></div>`                    
+                
+                    resultHTML+=html;
+                    
+               const conste =document.querySelector('.Input-results').innerHTML = resultHTML;
+              console.log(conste);
+              
+              const InputResults = document.getElementById('Input-results');
+              localStorage.setItem('Results', result)
+
+            }
+
+        }
+    }
+
+    window.onload = function() {
+        document.getElementById('Input-results').innerHTML = localStorage.getItem('Results')  
+      }
+
+    </script>
+
+</body>
+</html>
